@@ -9,10 +9,11 @@
 .decl AnotherRelation() printsize
 .decl YetMoreRelation(bit:String) output
 
+// The actual rules
 YetMoreRelation(thing) :-
     SomeRelation(_, thing, 2),
     SomeRelation(thing, _, 1).
 
-YetMoreRelation(cat(left, right)) :-
+YetMoreRelation(cat(right, left)), YetMoreRelation(cat(left, right)) :-
     SomeRelation(left, right, _).
 
