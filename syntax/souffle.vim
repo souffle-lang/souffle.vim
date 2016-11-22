@@ -8,16 +8,18 @@ if exists("b:current_syntax")
 endif
 
 " Comments
-syn region  souffleBlockComment start="/\*" end="\*/"
+syn region  souffleBlockComment  start="/\*" end="\*/"
 syn region  souffleInlineComment start="//" end="$"
 
-syn keyword souffleOperator     cat
-syn keyword souffleIOControl    input output printsize
-syn match   souffleDeclarations "\.\%(decl\|type\)"
+syn keyword souffleOperator      cat
+syn keyword souffleIOControl     input output printsize
+syn match   souffleDeclarations  "\.\%(decl\|type\)"
 
-syn match   souffleRuleHead     "^.*:-"
+syn region soufflePreproc        start="#" end="$" skip="\\$" keepend
 
-syn match   souffleUnderscore   "_"
+syn match   souffleRuleHead      "^.*:-"
+
+syn match   souffleUnderscore    "_"
 
 let b:current_syntax = "souffle"
 
@@ -26,6 +28,8 @@ hi def link souffleInlineComment Comment
 
 hi def link souffleIOControl     Statement
 hi def link souffleOperator      Statement
+
+hi def link soufflePreproc       PreProc
 
 hi def link souffleRuleHead      Identifier
 
