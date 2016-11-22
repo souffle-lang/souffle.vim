@@ -7,32 +7,35 @@ if exists("b:current_syntax")
   finish
 endif
 
-" Comments
-syn region  souffleBlockComment  start="/\*" end="\*/"
-syn region  souffleInlineComment start="//" end="$"
+" TODO got this from rust.vim, find somewhere to put it
+"syn match   souffleIdentifier    "\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*" display contained
 
-syn keyword souffleOperator      cat
+" Preprocessor directives
+syn region  soufflePreproc       start="#" end="$" skip="\\$" keepend
+
+" Declarations
 syn keyword souffleIOControl     input output printsize
 syn match   souffleDeclarations  "\.\%(decl\|type\)"
 
-syn region soufflePreproc        start="#" end="$" skip="\\$" keepend
-
+" Rules
 syn match   souffleRuleHead      "^.*:-"
-
+syn keyword souffleOperator      cat
 syn match   souffleUnderscore    "_"
+
+" Comments
+syn region  souffleBlockComment  start="/\*" end="\*/" contains=souffleTodo
+syn region  souffleInlineComment start="//" end="$" contains=souffleTodo
+syn keyword souffleTodo          TODO FIXME NOTE contained
 
 let b:current_syntax = "souffle"
 
 hi def link souffleBlockComment  Comment
+hi def link souffleDeclarations  Typedef
+hi def link souffleIdentifier    Identifier
 hi def link souffleInlineComment Comment
-
 hi def link souffleIOControl     Statement
 hi def link souffleOperator      Statement
-
 hi def link soufflePreproc       PreProc
-
 hi def link souffleRuleHead      Identifier
-
-hi def link souffleDeclarations  Typedef
-
+hi def link souffleTodo          Todo
 hi def link souffleUnderscore    Special
