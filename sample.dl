@@ -1,0 +1,18 @@
+/*
+ * Souffle sample file
+ */
+
+.type String
+.type Int
+
+.decl SomeRelation(foo:String, bar:String, baz:Int) input
+.decl AnotherRelation() printsize
+.decl YetMoreRelation(bit:String) output
+
+YetMoreRelation(thing) :-
+    SomeRelation(_, thing, 2),
+    SomeRelation(thing, _, 1).
+
+YetMoreRelation(cat(left, right)) :-
+    SomeRelation(left, right, _).
+
