@@ -7,35 +7,53 @@ if exists("b:current_syntax")
   finish
 endif
 
-" TODO got this from rust.vim, find somewhere to put it
-"syn match   souffleIdentifier    "\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*" display contained
-
-" Preprocessor directives
-syn region  soufflePreproc       start="#" end="$" skip="\\$" keepend
-
-" Declarations
-syn keyword souffleIOControl     input output printsize
-syn match   souffleDeclarations  "\.\%(decl\|type\)"
-
-" Rules
-syn match   souffleRuleHead      "^.*:-"
-syn keyword souffleOperator      cat
-syn match   souffleUnderscore    "_"
-
 " Comments
 syn region  souffleBlockComment  start="/\*" end="\*/" contains=souffleTodo
 syn region  souffleInlineComment start="//" end="$" contains=souffleTodo
 syn keyword souffleTodo          TODO FIXME NOTE contained
 
+" Preprocessor directives
+syn region  soufflePreproc       start="#" end="$" skip="\\$" keepend
+
+" Type Declarations
+syn match   souffleTypeDef       "\.type"
+
+" Relation Declarations
+syn keyword souffleIOControl     input output printsize
+syn match   souffleDef           "\.decl[^)]*)" transparent contains=souffleDefKey,souffleDefBody
+syn match   souffleDefKey        "\.decl" contained containedin=souffleDef
+syn region  souffleDefBody       start="[a-zA-Z0-9_-]*(" end=")" transparent contained containedin=souffleDef contains=souffleDefCName,souffleDefCSep,souffleDefCTypesouffleDefRel
+syn match   souffleDefRel        "[a-zA-Z0-9_-]*(" transparent contained containedin=souffleDefBody contains=souffleDefRelName
+syn match   souffleDefRelName    "[a-zA-Z0-9_-]*" contained containedin=souffleDefRel
+syn match   souffleDefCName      "[a-zA-Z0-9_-]*:[a-zA-Z0-9_-]*" contained containedin=souffleDefBody contains=souffleDefCType
+syn match   souffleDefCSep       ":" contained containedin=souffleDefCType
+syn match   souffleDefCType      ":[a-zA-Z0-9_-]*" contained containedin=souffleDefCName contains=souffleDefCSep
+
+" Rules
+syn region  souffleRule           start="[a-zA-Z0-9_-]*(" end="\." contains=souffleRuleHead,souffleRuleBody keepend
+syn region  souffleRuleBody       start=":-" end="\." contained contains=souffleRuleBodyStart,souffleRuleBodyEnd,souffleRuleBodyTerm,souffleRuleBodySym keepend
+syn match   souffleRuleHead       "[a-zA-Z0-9_-]*(" contained containedin=souffleRule contains=souffleRuleHeadName
+syn match   souffleRuleHeadName   "[a-zA-Z0-9_-]*" contained containedin=souffleRuleHead
+syn match   souffleRuleBodyTerm   "[a-zA-Z0-9_-]*(" contained containedin=souffleRuleBody contains=souffleRuleBodyTName
+syn match   souffleRuleBodyTName  "[a-zA-Z0-9_-]*" contained containedin=souffleRuleBodyTerm
+syn match   souffleRuleBodyStart  ":-" contained containedin=souffleRuleBody
+syn match   souffleRuleBodyEnd    "\." contained containedin=souffleRuleBody
+syn match   souffleRuleBodySym    "_" contained containedin=souffleRuleBody
+
 let b:current_syntax = "souffle"
 
 hi def link souffleBlockComment  Comment
-hi def link souffleDeclarations  Typedef
-hi def link souffleIdentifier    Identifier
+hi def link souffleDefCSep       Special
+hi def link souffleDefKey        Statement
+hi def link souffleDefRelName    Type
 hi def link souffleInlineComment Comment
 hi def link souffleIOControl     Statement
-hi def link souffleOperator      Statement
 hi def link soufflePreproc       PreProc
-hi def link souffleRuleHead      Identifier
+hi def link souffleRuleHeadName  Identifier
+hi def link souffleRuleBodyTName Constant
+hi def link souffleRuleBodyEnd   Special
+hi def link souffleRuleBodyStart Special
+hi def link souffleRuleBodySym   Special
 hi def link souffleTodo          Todo
-hi def link souffleUnderscore    Special
+hi def link souffleTypeDef       Statement
+
