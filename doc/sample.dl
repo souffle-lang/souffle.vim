@@ -1,14 +1,14 @@
-
 /*
  * Souffle sample file
  */
-
 .type String
 .type Int
 
-.decl SomeRelation(foo:String, bar:String, baz:Int) input
-.decl AnotherRelation() printsize
-.decl YetMoreRelation(bit:String) output
+.decl SomeRelation(foo:String, bar:String, baz:Int)
+.decl AnotherRelation()
+.decl YetMoreRelation(bit:String)
+.input SomeRelation(IO=stdin), AnotherRelation
+.output YetMoreRelation(IO=file,filename="ymr.facts")
 
 // The actual rules
 YetMoreRelation(thing) :-
