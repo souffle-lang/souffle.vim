@@ -19,7 +19,9 @@ syn region  soufflePreproc       start="#" end="$" skip="\\$" keepend
 syn match   souffleTypeDef       "\.type"
 
 " Relation Declarations
-syn keyword souffleIOControl     input output printsize
+syn match   souffleIODirective   "\.[iop][nur][pti].*$" transparent contains=souffleIOControl,souffleIOField
+syn match   souffleIOControl     "\.[iop][nur][pti][a-zA-Z]*" contained containedin=souffleIODirective
+syn match   souffleIOField       "[a-zA-Z]*=" contained containedin=souffleIODirective
 syn match   souffleDef           "\.decl[^)]*)" transparent contains=souffleDefKey,souffleDefBody
 syn match   souffleDefKey        "\.decl" contained containedin=souffleDef
 syn region  souffleDefBody       start="[a-zA-Z0-9_-]*(" end=")" transparent contained containedin=souffleDef contains=souffleDefCName,souffleDefCSep,souffleDefCTypesouffleDefRel
@@ -48,6 +50,7 @@ hi def link souffleDefKey        Statement
 hi def link souffleDefRelName    Type
 hi def link souffleInlineComment Comment
 hi def link souffleIOControl     Statement
+hi def link souffleIOField       PreProc
 hi def link soufflePreproc       PreProc
 hi def link souffleRuleHeadName  Identifier
 hi def link souffleRuleBodyTName Constant
