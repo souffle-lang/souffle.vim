@@ -18,10 +18,12 @@ syn region  soufflePreproc       start="#" end="$" skip="\\$" keepend
 " Type Declarations
 syn match   souffleTypeDef       "\.type"
 
-" Relation Declarations
+" IO Directives
 syn match   souffleIODirective   "\.[iop][nur][pti].*$" transparent contains=souffleIOControl,souffleIOField
 syn match   souffleIOControl     "\.[iop][nur][pti][a-zA-Z]*" contained containedin=souffleIODirective
 syn match   souffleIOField       "[a-zA-Z]*=" contained containedin=souffleIODirective
+
+" Relation Declarations
 syn match   souffleDef           "\.decl[^)]*)" transparent contains=souffleDefKey,souffleDefBody
 syn match   souffleDefKey        "\.decl" contained containedin=souffleDef
 syn region  souffleDefBody       start=" [- ,a-zA-Z0-9]*(" end=")" transparent contained containedin=souffleDef contains=souffleDefCName,souffleDefCSep,souffleDefCTypesouffleDefRel
