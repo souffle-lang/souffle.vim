@@ -24,8 +24,8 @@ syn match   souffleIOControl     "\.[iop][nur][pti][a-zA-Z]*" contained containe
 syn match   souffleIOField       "[a-zA-Z]*=" contained containedin=souffleIODirective
 syn match   souffleDef           "\.decl[^)]*)" transparent contains=souffleDefKey,souffleDefBody
 syn match   souffleDefKey        "\.decl" contained containedin=souffleDef
-syn region  souffleDefBody       start="[a-zA-Z0-9_-]*(" end=")" transparent contained containedin=souffleDef contains=souffleDefCName,souffleDefCSep,souffleDefCTypesouffleDefRel
-syn match   souffleDefRel        "[a-zA-Z0-9_-]*(" transparent contained containedin=souffleDefBody contains=souffleDefRelName
+syn region  souffleDefBody       start=" [- ,a-zA-Z0-9]*(" end=")" transparent contained containedin=souffleDef contains=souffleDefCName,souffleDefCSep,souffleDefCTypesouffleDefRel
+syn match   souffleDefRel        "[^(]*(" transparent contained containedin=souffleDefBody contains=souffleDefRelName
 syn match   souffleDefRelName    "[a-zA-Z0-9_-]*" contained containedin=souffleDefRel
 syn match   souffleDefCName      "[a-zA-Z0-9_-]*:[a-zA-Z0-9_-]*" contained containedin=souffleDefBody contains=souffleDefCType
 syn match   souffleDefCSep       ":" contained containedin=souffleDefCType
