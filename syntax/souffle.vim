@@ -30,7 +30,7 @@ syn match   souffleIOField       "[a-zA-Z0-9]*=" contained containedin=souffleIO
 " Relation Declarations
 syn region  souffleDef           start="\.decl" end=")" keepend transparent contains=souffleDefKey,souffleDefBody
 syn match   souffleDefKey        "\.decl" contained containedin=souffleDef
-syn region  souffleDefBody       start=" [- ,a-zA-Z0-9?]*(" end=")" transparent contained containedin=souffleDef contains=souffleDefCName,souffleDefCSep,souffleDefCTypesouffleDefRel
+syn region  souffleDefBody       start=" [- ,a-zA-Z0-9?]*(" end=")" transparent contained containedin=souffleDef contains=souffleDefCName,souffleDefCSep,souffleDefCType,souffleDefRel
 syn match   souffleDefRel        "[^(]*(" transparent contained containedin=souffleDefBody contains=souffleDefRelName
 syn match   souffleDefRelName    "[a-zA-Z0-9?_-]*" contained containedin=souffleDefRel
 syn match   souffleDefCName      "[a-zA-Z0-9?_-]*:[a-zA-Z0-9?_-]*" contained containedin=souffleDefBody contains=souffleDefCType
