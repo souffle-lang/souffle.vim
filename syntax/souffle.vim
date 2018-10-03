@@ -24,8 +24,8 @@ syn match   souffleIODirective   "\(\.input\|\.output\|\.printsize\)[^(]*$" tran
 syn match   souffleIOKey         "^\.[a-z]*" contained containedin=souffleIODirective
 syn match   souffleIORelNames    " [- ,_?a-zA-Z0-9]*(" transparent contained containedin=souffleIODirective contains=souffleIORelName
 syn match   souffleIORelNames    " [- ,_?a-zA-Z0-9]*$" transparent contained containedin=souffleIODirective contains=souffleIORelName
-syn match   souffleIORelName     "[a-zA-Z0-9?_-]*" contained containedin=souffleIORelNames
-syn match   souffleIOField       "[a-zA-Z]*=" contained containedin=souffleIODirective
+syn match   souffleIORelName     "[\?a-zA-Z]|[_\?a-zA-Z][_\?a-zA-Z0-9]+" contained containedin=souffleIORelNames
+syn match   souffleIOField       "[a-zA-Z0-9]*=" contained containedin=souffleIODirective
 
 " Relation Declarations
 syn match   souffleDef           "\.decl[^)]*)" transparent contains=souffleDefKey,souffleDefBody
