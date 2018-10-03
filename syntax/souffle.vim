@@ -19,13 +19,12 @@ syn region  soufflePreproc       start="#" end="$" skip="\\$" keepend
 syn match   souffleTypeDef       "\.type"
 
 " IO Directives
-syn match   souffleIODirective   "\.input .*$" transparent contains=souffleIOKey,souffleIORelNames,souffleIOField
-syn match   souffleIODirective   "\.output .*$" transparent contains=souffleIOKey,souffleIORelNames,souffleIOField
-syn match   souffleIODirective   "\.printsize .*$" transparent contains=souffleIOKey,souffleIORelNames,souffleIOField
+syn region  souffleIODirective   start="\(\.input\|\.output\|\.printsize\).*(" end=")" transparent contains=souffleIOKey,souffleIORelNames,souffleIOField
+syn match   souffleIODirective   "\(\.input\|\.output\|\.printsize\)[^(]*$" transparent contains=souffleIORelNames
 syn match   souffleIOKey         "^\.[a-z]*" contained containedin=souffleIODirective
 syn match   souffleIORelNames    " [- ,_?a-zA-Z0-9]*(" transparent contained containedin=souffleIODirective contains=souffleIORelName
 syn match   souffleIORelNames    " [- ,_?a-zA-Z0-9]*$" transparent contained containedin=souffleIODirective contains=souffleIORelName
-syn match   souffleIORelName     "[a-zA-Z0-9_-]*" contained containedin=souffleIORelNames
+syn match   souffleIORelName     "[a-zA-Z0-9?_-]*" contained containedin=souffleIORelNames
 syn match   souffleIOField       "[a-zA-Z]*=" contained containedin=souffleIODirective
 
 " Relation Declarations
