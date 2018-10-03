@@ -33,9 +33,9 @@ syn match   souffleDefKey        "\.decl" contained containedin=souffleDef
 syn region  souffleDefBody       start=" [- ,a-zA-Z0-9?]*(" end=")" transparent contained containedin=souffleDef contains=souffleDefCName,souffleDefCSep,souffleDefCTypesouffleDefRel
 syn match   souffleDefRel        "[^(]*(" transparent contained containedin=souffleDefBody contains=souffleDefRelName
 syn match   souffleDefRelName    "[a-zA-Z0-9?_-]*" contained containedin=souffleDefRel
-syn match   souffleDefCName      "[a-zA-Z0-9_-]*:[a-zA-Z0-9_-]*" contained containedin=souffleDefBody contains=souffleDefCType
+syn match   souffleDefCName      "[a-zA-Z0-9?_-]*:[a-zA-Z0-9?_-]*" contained containedin=souffleDefBody contains=souffleDefCType
 syn match   souffleDefCSep       ":" contained containedin=souffleDefCType
-syn match   souffleDefCType      ":[a-zA-Z0-9_-]*" contained containedin=souffleDefCName contains=souffleDefCSep
+syn match   souffleDefCType      ":[a-zA-Z0-9?_-]*" contained containedin=souffleDefCName contains=souffleDefCSep
 
 " Rules
 syn region  souffleRule           start="[?a-zA-Z0-9_-]*(" end="\." contains=souffleRuleHead,souffleRuleBody keepend
