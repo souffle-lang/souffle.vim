@@ -21,7 +21,7 @@ syn match   souffleTypeHead       "\.type" contained containedin=souffleTypeDef
 
 " Idents
 syn match   souffleRelId        "[a-zA-Z?_][a-zA-Z0-9?_][a-zA-Z0-9?_]*\|[a-zA-Z?]" contained containedin=souffleDefRel,souffleIORelNames,souffleRuleHead,souffleRuleBodyTerm
-syn match   souffleVarId        "[a-zA-Z?_][a-zA-Z0-9?_][a-zA-Z0-9?_]*\|[a-zA-Z?]" contained containedin=souffleDefCName,souffleRuleHeadBody,souffleRuleTBody
+syn match   souffleVarId        "[a-zA-Z?_][a-zA-Z0-9?_]*" contained containedin=souffleDefCName,souffleRuleHeadBody,souffleRuleTBody
 syn match   souffleTypeId       "[a-zA-Z?_][a-zA-Z0-9?_][a-zA-Z0-9?_]*\|[a-zA-Z?]" contained containedin=souffleTypeDef,souffleDefCType
 syn match   souffleConstantId   "\"[^\"]*\"\|[0-9][0-9]*" contained containedin=souffleRuleBody
 
@@ -52,9 +52,8 @@ syn match   souffleRuleHeadBody   "(.*)" contained containedin=souffleRuleHead c
 syn region  souffleRuleBody       start=":-" end="\." contained contains=souffleRuleBodyStart,souffleRuleBodyEnd,souffleRuleBodyTerm,souffleConstantId,souffleOp,souffleVarId keepend
 syn match   souffleRuleBodyStart  ":-" contained containedin=souffleRuleBody
 syn match   souffleRuleBodyEnd    "\." contained containedin=souffleRuleBody
-syn match   souffleRuleBodyTerm   "[a-zA-Z0-9?_-]*([^)]*)" contained containedin=souffleRuleBody contains=souffleRelId,souffleRuleTBody
-syn match   souffleRuleTBody      "([^)]*)" contained containedin=souffleRuleBodyTerm contains=souffleVarId,souffleRuleTBodySym,souffleConstantId
-syn match   souffleRuleTBodySym   "_" contained containedin=souffleRuleTBody
+syn match   souffleRuleBodyTerm   "[a-zA-Z0-9?_-]* *([^)]*)" contained containedin=souffleRuleBody contains=souffleRelId,souffleRuleTBody
+syn match   souffleRuleTBody      "([^)]*)" contained containedin=souffleRuleBodyTerm contains=souffleConstantId,souffleVarId
 
 let b:current_syntax = "souffle"
 
@@ -67,7 +66,6 @@ hi def link souffleIOField       PreProc
 hi def link soufflePreproc       PreProc
 hi def link souffleRuleBodyEnd   Special
 hi def link souffleRuleBodyStart Special
-hi def link souffleRuleBodySym   Special
 hi def link souffleTodo          Todo
 hi def link souffleTypeHead      Statement
 hi def link souffleRelId         Type
