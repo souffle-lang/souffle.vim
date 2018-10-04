@@ -29,7 +29,7 @@ syn match   souffleConstantId   "\"[^\"]*\"\|[0-9][0-9]*" contained containedin=
 syn match souffleOp             "+\|-\|\*\|/\|<\|>\|=\|!" contained containedin=souffleRuleHeadBody,souffleRuleTBody,souffleRuleBody
 
 " IO Directives
-syn region  souffleIODirective   start="\(\.input\|\.output\|\.printsize\).*(" end=")" transparent contains=souffleIOKey,souffleIORelNames,souffleIOField
+syn region  souffleIODirective   start="\(\.input\|\.output\|\.printsize\).*(" end=")" transparent contains=souffleIOKey,souffleIORelNames,souffleIOField fold
 syn match   souffleIODirective   "\(\.input\|\.output\|\.printsize\)[^(]*$" transparent contains=souffleIORelNames
 syn match   souffleIOKey         "^\.[a-z]*" contained containedin=souffleIODirective
 syn match   souffleIORelNames    " [ ,a-zA-Z0-9?_-]*(" transparent contained containedin=souffleIODirective contains=souffleIORelName
@@ -37,7 +37,7 @@ syn match   souffleIORelNames    " [ ,a-zA-Z0-9?_-]*$" transparent contained con
 syn match   souffleIOField       "[a-zA-Z0-9]*=" contained containedin=souffleIODirective
 
 " Relation Declarations
-syn region  souffleDef           start="\.decl" end=")" contains=souffleDefKey,souffleDefBody keepend
+syn region  souffleDef           start="\.decl" end=")" contains=souffleDefKey,souffleDefBody keepend fold
 syn match   souffleDefKey        "\.decl" contained containedin=souffleDef
 syn region  souffleDefBody       start=" [ ,a-zA-Z0-9?_-]*(" end=")" transparent contained containedin=souffleDef contains=souffleDefCName,souffleDefCSep,souffleDefCType,souffleDefRel
 syn match   souffleDefRel        "[^(]*(" transparent contained containedin=souffleDefBody contains=souffleRelId
@@ -46,7 +46,7 @@ syn match   souffleDefCSep       ":" contained containedin=souffleDefCType
 syn match   souffleDefCType      ": *[a-zA-Z0-9?_-]*" contained containedin=souffleDefCName contains=souffleDefCSep,souffleTypeId
 
 " Rules
-syn region  souffleRule           start="[a-zA-Z0-9?_-]*(" end="\." contains=souffleRuleHead,souffleRuleBody keepend
+syn region  souffleRule           start="[a-zA-Z0-9?_-]*(" end="\." contains=souffleRuleHead,souffleRuleBody keepend fold
 syn match   souffleRuleHead       "[a-zA-Z0-9?_-]*([^)]*)" contained containedin=souffleRule contains=souffleRelId,souffleRuleHeadBody keepend
 syn match   souffleRuleHeadBody   "(.*)" contained containedin=souffleRuleHead contains=souffleVarId,souffleConstantId,souffleOp
 syn region  souffleRuleBody       start=":-" end="\." contained contains=souffleRuleBodyStart,souffleRuleBodyEnd,souffleRuleBodyTerm,souffleConstantId,souffleOp,souffleVarId keepend
