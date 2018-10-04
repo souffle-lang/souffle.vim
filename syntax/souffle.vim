@@ -22,7 +22,11 @@ syn match   souffleTypeHead       "\.type" contained containedin=souffleTypeDef
 " Idents
 syn match   souffleRelId        "[\?a-zA-Z]\|[_\?a-zA-Z][_\?a-zA-Z0-9][_\?a-zA-Z0-9]*" contained containedin=souffleDefRel,souffleIORelNames,souffleRuleHead,souffleRuleBodyTerm
 syn match   souffleVarId        "[\?a-zA-Z]\|[_\?a-zA-Z][_\?a-zA-Z0-9][_\?a-zA-Z0-9]*" contained containedin=souffleDefCName,souffleRuleHeadBody,souffleRuleTBody
-syn match   souffleTypeId        "[\?a-zA-Z]\|[_\?a-zA-Z][_\?a-zA-Z0-9][_\?a-zA-Z0-9]*" contained containedin=souffleTypeDef,souffleDefCType
+syn match   souffleTypeId       "[\?a-zA-Z]\|[_\?a-zA-Z][_\?a-zA-Z0-9][_\?a-zA-Z0-9]*" contained containedin=souffleTypeDef,souffleDefCType
+syn match   souffleConstantId   "\"[^\"]*\"\|[0-9][0-9]*" contained containedin=souffleRuleBody
+
+" Operators
+syn match souffleOp             "+\|-\|\*\|/\|<\|>\|=" contained containedin=souffleRuleHeadBody,souffleRuleTBody,souffleRuleBody
 
 " IO Directives
 syn region  souffleIODirective   start="\(\.input\|\.output\|\.printsize\).*(" end=")" transparent contains=souffleIOKey,souffleIORelNames,souffleIOField
@@ -44,13 +48,13 @@ syn match   souffleDefCType      ":[a-zA-Z0-9?_-]*" contained containedin=souffl
 " Rules
 syn region  souffleRule           start="[?a-zA-Z0-9_-]*(" end="\." contains=souffleRuleHead,souffleRuleBody keepend
 syn match   souffleRuleHead       "[a-zA-Z0-9?_-]*([^)]*)" contained containedin=souffleRule contains=souffleRelId,souffleRuleHeadBody keepend
-syn match   souffleRuleHeadBody   "(.*)" contained containedin=souffleRuleHead contains=souffleVarId
-syn region  souffleRuleBody       start=":-" end="\." contained contains=souffleRuleBodyStart,souffleRuleBodyEnd,souffleRuleBodyTerm,souffleRuleBodySym keepend
+syn match   souffleRuleHeadBody   "(.*)" contained containedin=souffleRuleHead contains=souffleVarId,souffleConstantId,souffleOp
+syn region  souffleRuleBody       start=":-" end="\." contained contains=souffleRuleBodyStart,souffleRuleBodyEnd,souffleRuleBodyTerm,souffleConstantId,souffleOp,souffleVarId keepend
 syn match   souffleRuleBodyStart  ":-" contained containedin=souffleRuleBody
 syn match   souffleRuleBodyEnd    "\." contained containedin=souffleRuleBody
-syn match   souffleRuleBodySym    "_" contained containedin=souffleRuleBody
 syn match   souffleRuleBodyTerm   "[a-zA-Z0-9?_-]*([^)]*)" contained containedin=souffleRuleBody contains=souffleRelId,souffleRuleTBody
-syn match   souffleRuleTBody      "([^)]*)" contained containedin=souffleRuleBodyTerm contains=souffleVarId
+syn match   souffleRuleTBody      "([^)]*)" contained containedin=souffleRuleBodyTerm contains=souffleVarId,souffleRuleTBodySym
+syn match   souffleRuleTBodySym   "_" contained containedin=souffleRuleTBody
 
 let b:current_syntax = "souffle"
 
@@ -68,4 +72,6 @@ hi def link souffleTodo          Todo
 hi def link souffleTypeHead      Statement
 hi def link souffleRelId         Type
 hi def link souffleVarId         Identifier
-" hi def link souffleRuleBodyTName Constant
+hi def link souffleConstantId    Constant
+hi def link souffleOp            Special
+hi def link souffleTypeId        Constant
