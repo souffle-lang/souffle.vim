@@ -16,13 +16,19 @@ syn keyword souffleTodo          TODO FIXME NOTE contained
 syn region  soufflePreproc       start="#" end="$" skip="\\$" keepend
 
 " Type Declarations
-syn match   souffleTypeDef       "\.type [-_\?a-zA-Z0-9]*" contains=souffleTypeHead,souffleTypeId
-syn match   souffleTypeHead       "\.type" contained containedin=souffleTypeDef
+syn match   souffleTypeDef       "\.type\_[^]]*]" contains=souffleTypeHead,souffleTypeBody transparent
+syn match   souffleTypeHead      "\.type\_[^[]*" contained containedin=souffleTypeDef contains=souffleTypeKey,souffleTypeId transparent
+syn region  souffleTypeBody      start="\[" end="]" contained containedin=souffleTypeDef contains=souffleDefCName
+syn match   souffleTypeDef       "\.number_type  *[a-zA-Z0-9?_]*" contains=souffleTypeKey,souffleTypeId transparent
+syn match   souffleTypeDef       "\.symbol_type  *[a-zA-Z0-9?_]*" contains=souffleTypeKey,souffleTypeId transparent
+syn match   souffleTypeKey       "\.type" contained
+syn match   souffleTypeKey       "\.number_type" contained
+syn match   souffleTypeKey       "\.symbol_type" contained
 
 " Idents
 syn match   souffleRelId        "[a-zA-Z?_][a-zA-Z0-9?_][a-zA-Z0-9?_]*\|[a-zA-Z?]" contained containedin=souffleDefRel,souffleIORelNames,souffleRuleHead,souffleRuleBodyTerm
 syn match   souffleVarId        "[a-zA-Z?_][a-zA-Z0-9?_]*" contained containedin=souffleDefCName,souffleRuleHeadBody,souffleRuleTBody
-syn match   souffleTypeId       "[a-zA-Z?_][a-zA-Z0-9?_][a-zA-Z0-9?_]*\|[a-zA-Z?]" contained containedin=souffleTypeDef,souffleDefCType
+syn match   souffleTypeId       "[a-zA-Z?_][a-zA-Z0-9?_][a-zA-Z0-9?_]*\|[a-zA-Z?]" contained containedin=souffleTypeHead,souffleDefCType
 syn match   souffleConstantId   "\"[^\"]*\"\|[0-9][0-9]*" contained containedin=souffleRuleBody
 
 " Operators
@@ -67,7 +73,7 @@ hi def link soufflePreproc       PreProc
 hi def link souffleRuleBodyEnd   Special
 hi def link souffleRuleBodyStart Special
 hi def link souffleTodo          Todo
-hi def link souffleTypeHead      Statement
+hi def link souffleTypeKey       Statement
 hi def link souffleRelId         Type
 hi def link souffleVarId         Identifier
 hi def link souffleConstantId    Constant
