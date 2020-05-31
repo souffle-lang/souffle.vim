@@ -39,6 +39,15 @@ syn match   souffleIORelNames    " [ ,a-zA-Z0-9?_-]*(" transparent contained con
 syn match   souffleIORelNames    " [ ,a-zA-Z0-9?_-]*$" transparent contained containedin=souffleIODirective contains=souffleRelId
 syn match   souffleIOField       "[a-zA-Z0-9]*=" contained containedin=souffleIODirective
 
+" Plan Directives
+syn region  soufflePlan           start="\.plan" end=")" contains=soufflePlanKey,soufflePlanBody keepend fold
+syn match   soufflePlanKey        "\.plan" contained containedin=soufflePlan
+syn region  soufflePlanBody       start=" [0-9]*:(" end=")" transparent contained containedin=soufflePlan contains=soufflePlanVer,soufflePlanOrder
+syn match   soufflePlanVer        " [0-9]*" contained containedin=soufflePlanBody
+syn match   soufflePlanOrder      "([ ,0-9]*)" transparent contained containedin=soufflePlanBody contains=soufflePlanOrderSep
+syn match   soufflePlanOrderId    "[0-9]*" contained containedin=soufflePlanOrder
+syn match   soufflePlanOrderSep   "," transparent contained containedin=soufflePlanOrder
+
 " Relation Declarations
 syn region  souffleDef           start="\.decl" end=")" contains=souffleDefKey,souffleDefBody keepend fold
 syn match   souffleDefKey        "\.decl" contained containedin=souffleDef
@@ -76,3 +85,6 @@ hi def link souffleVarId         Identifier
 hi def link souffleConstantId    Constant
 hi def link souffleOp            Special
 hi def link souffleTypeId        PreProc
+hi def link soufflePlanKey       Statement
+hi def link soufflePlanVer       Identifier
+hi def link soufflePlanOrderId   Special
