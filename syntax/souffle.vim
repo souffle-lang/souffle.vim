@@ -42,8 +42,8 @@ syn match   souffleIOField       "[a-zA-Z0-9]*=" contained containedin=souffleIO
 " Plan Directives
 syn region  soufflePlan           start="\.plan" end=")" contains=soufflePlanKey,soufflePlanBody keepend fold
 syn match   soufflePlanKey        "\.plan" contained containedin=soufflePlan
-syn region  soufflePlanBody       start=" [0-9]*:(" end=")" transparent contained containedin=soufflePlan contains=soufflePlanVer,soufflePlanOrder
-syn match   soufflePlanVer        " [0-9]*" contained containedin=soufflePlanBody
+syn region  soufflePlanBody       start=" [0-9][ ]*:[ ]*(" end=")" transparent contained containedin=soufflePlan contains=soufflePlanVer,soufflePlanOrder
+syn match   soufflePlanVer        "[0-9]*[ ]*:" contained containedin=soufflePlanBody contains=soufflePlan
 syn match   soufflePlanOrder      "([ ,0-9]*)" transparent contained containedin=soufflePlanBody contains=soufflePlanOrderSep
 syn match   soufflePlanOrderId    "[0-9]*" contained containedin=soufflePlanOrder
 syn match   soufflePlanOrderSep   "," transparent contained containedin=soufflePlanOrder
