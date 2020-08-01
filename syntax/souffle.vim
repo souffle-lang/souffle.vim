@@ -26,7 +26,7 @@ syn match   souffleTypeKey       "^\.\(type\|number_type\|symbol_type\)" contain
 syn match   souffleRelId        "[a-zA-Z?_][a-zA-Z0-9?_][a-zA-Z0-9?_]*\|[a-zA-Z?]" contained containedin=souffleDefRel,souffleIORelNames,souffleRuleHead,souffleRuleBodyTerm
 syn match   souffleVarId        "[a-zA-Z?_][a-zA-Z0-9?_]*" contained containedin=souffleDefCName,souffleRuleHeadBody,souffleRuleTBody
 syn match   souffleTypeId       "[a-zA-Z?_][a-zA-Z0-9?_][a-zA-Z0-9?_]*\|[a-zA-Z?]" contained containedin=souffleTypeHead,souffleDefCType
-syn match   souffleConstantId   "\"[^\"]*\"\|\d\+\|\d\+\.\d\+" contained containedin=souffleRuleBody
+syn match   souffleConstantId   "\"[^\"]*\"\|[0-9][0-9]*\|[0-9][0-9]*\.[0-9][0-9]*" contained containedin=souffleRuleBody
 
 " Operators
 syn match souffleOp             "+\|-\|\*\|/\|<\|>\|=\|!" contained containedin=souffleRuleHeadBody,souffleRuleTBody,souffleRuleBody
