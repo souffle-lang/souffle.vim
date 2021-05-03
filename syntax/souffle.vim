@@ -26,7 +26,7 @@ syn match   souffleTypeKey       "^\.\(type\|number_type\|symbol_type\)" contain
 syn match   souffleRelId        "[a-zA-Z?_][a-zA-Z0-9?_][a-zA-Z0-9?_]*\|[a-zA-Z?]" contained containedin=souffleDefRel,souffleIORelNames,souffleRuleHead,souffleRuleBodyTerm
 syn match   souffleVarId        "[a-zA-Z?_][a-zA-Z0-9?_]*" contained containedin=souffleDefCName,souffleRuleHeadBody,souffleRuleTBody
 syn match   souffleTypeId       "[a-zA-Z?_][a-zA-Z0-9?_][a-zA-Z0-9?_]*\|[a-zA-Z?]" contained containedin=souffleTypeHead,souffleDefCType
-syn match   souffleConstantId   "\"[^\"]*\"\|[0-9][0-9]*" contained containedin=souffleRuleBody
+syn match   souffleConstantId   "\"[^\"]*\"\|[0-9][0-9]*\|[0-9][0-9]*\.[0-9][0-9]*" contained containedin=souffleRuleBody
 
 " Operators
 syn match souffleOp             "+\|-\|\*\|/\|<\|>\|=\|!" contained containedin=souffleRuleHeadBody,souffleRuleTBody,souffleRuleBody
@@ -63,8 +63,8 @@ syn match   souffleDefCSep       ":" contained containedin=souffleDefCType
 syn match   souffleDefCType      ": *[a-zA-Z0-9?_-]*" contained containedin=souffleDefCName contains=souffleDefCSep,souffleTypeId
 
 " Rules
-syn region  souffleRule           start="[a-zA-Z0-9?_-]*(" end="\." contains=souffleRuleHead,souffleRuleBody keepend fold
-syn match   souffleRuleHead       "[a-zA-Z0-9?_-]*([^)]*)" contained containedin=souffleRule contains=souffleRelId,souffleRuleHeadBody keepend
+syn region  souffleRule           start="[a-zA-Z0-9?_-]*(" end="\." contains=souffleRuleHead,souffleRuleBody fold
+syn match   souffleRuleHead       "[a-zA-Z0-9?_-]*([^)]*)" contained containedin=souffleRule contains=souffleRelId,souffleRuleHeadBody
 syn match   souffleRuleHeadBody   "(.*)" contained containedin=souffleRuleHead contains=souffleVarId,souffleConstantId,souffleOp
 syn region  souffleRuleBody       start=":-" end="\." contained contains=souffleRuleBodyStart,souffleRuleBodyEnd,souffleRuleBodyTerm,souffleConstantId,souffleOp,souffleVarId keepend
 syn match   souffleRuleBodyStart  ":-" contained containedin=souffleRuleBody
